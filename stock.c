@@ -17,35 +17,35 @@ void ajouterProduit(Produit produits[], int *nbProduits) {
     printf("Description : "); scanf("%s", p.description);
     printf("Utilisateur : "); scanf("%s", p.utilisateur);
     printf("Prix unitaire : "); scanf("%f", &p.prix_unitaire);
-    printf("Quantité : "); scanf("%d", &p.quantite);
+    printf("QuantitÃ© : "); scanf("%d", &p.quantite);
     printf("Seuil d'alerte : "); scanf("%d", &p.seuil_alerte);
-    printf("Date d'entrée (JJ/MM/AAAA) : "); scanf("%d/%d/%d", &p.date_entree.j, &p.date_entree.m, &p.date_entree.an);
+    printf("Date d'entrÃ©e (JJ/MM/AAAA) : "); scanf("%d/%d/%d", &p.date_entree.j, &p.date_entree.m, &p.date_entree.an);
     printf("Date de sortie (JJ/MM/AAAA) : "); scanf("%d/%d/%d", &p.date_sortie.j, &p.date_sortie.m, &p.date_sortie.an);
 
     produits[*nbProduits] = p;
     (*nbProduits)++;
-    printf("Produit ajouté avec succès.\n");
+    printf("Produit ajoutÃ© avec succÃ¨s.\n");
 }
 
 void modifierProduit(Produit produits[], int nbProduits) {
     char id[10];
-    printf("Entrez l'ID du produit à modifier : ");
+    printf("Entrez l'ID du produit Ã  modifier : ");
     scanf("%s", id);
 
     for (int i = 0; i < nbProduits; i++) {
         if (strcmp(produits[i].ID, id) == 0) {
-            printf("Produit trouvé. Modifiez les informations :\n");
+            printf("Produit trouvÃ©. Modifiez les informations :\n");
             printf("Nom (%s) : ", produits[i].nom); scanf("%s", produits[i].nom);
             printf("Description (%s) : ", produits[i].description); scanf("%s", produits[i].description);
             printf("Utilisateur (%s) : ", produits[i].utilisateur); scanf("%s", produits[i].utilisateur);
             printf("Prix unitaire (%.2f) : ", produits[i].prix_unitaire); scanf("%f", &produits[i].prix_unitaire);
-            printf("Quantité (%d) : ", produits[i].quantite); scanf("%d", &produits[i].quantite);
+            printf("QuantitÃ© (%d) : ", produits[i].quantite); scanf("%d", &produits[i].quantite);
             printf("Seuil d'alerte (%d) : ", produits[i].seuil_alerte); scanf("%d", &produits[i].seuil_alerte);
-            printf("Date d'entrée (%02d/%02d/%04d) : ", produits[i].date_entree.j, produits[i].date_entree.m, produits[i].date_entree.an);
+            printf("Date d'entrÃ©e (%02d/%02d/%04d) : ", produits[i].date_entree.j, produits[i].date_entree.m, produits[i].date_entree.an);
             scanf("%d/%d/%d", &produits[i].date_entree.j, &produits[i].date_entree.m, &produits[i].date_entree.an);
             printf("Date de sortie (%02d/%02d/%04d) : ", produits[i].date_sortie.j, produits[i].date_sortie.m, produits[i].date_sortie.an);
             scanf("%d/%d/%d", &produits[i].date_sortie.j, &produits[i].date_sortie.m, &produits[i].date_sortie.an);
-            printf("Produit modifié avec succès.\n");
+            printf("Produit modifiÃ© avec succï¿½s.\n");
             return;
         }
     }
@@ -54,7 +54,7 @@ void modifierProduit(Produit produits[], int nbProduits) {
 
 void supprimerProduit(Produit produits[], int *nbProduits) {
     char id[10];
-    printf("Entrez l'ID du produit à supprimer : ");
+    printf("Entrez l'ID du produit Ã  supprimer : ");
     scanf("%s", id);
 
     for (int i = 0; i < *nbProduits; i++) {
@@ -63,7 +63,7 @@ void supprimerProduit(Produit produits[], int *nbProduits) {
                 produits[j] = produits[j + 1];
             }
             (*nbProduits)--;
-            printf("Produit supprimé avec succès.\n");
+            printf("Produit supprimÃ© avec succï¿½s.\n");
             return;
         }
     }
@@ -90,57 +90,63 @@ void rechercherProduit(Produit produits[], int nbProduits) {
         scanf("%s", nom);
         for (int i = 0; i < nbProduits; i++) {
             if (strcmp(produits[i].nom, nom) == 0) {
-                printf("Produit trouvé : %s (ID: %s)\n", produits[i].nom, produits[i].ID);
+                printf("Produit trouvÃ© : %s (ID: %s)\n", produits[i].nom, produits[i].ID);
                 return;
             }
         }
-        printf("Aucun produit trouvé avec ce nom.\n");
+        printf("Aucun produit trouvÃ© avec ce nom.\n");
     } else if (choix == 2) {
         char utilisateur[50];
         printf("Entrez le nom de l'utilisateur : ");
         scanf("%s", utilisateur);
         for (int i = 0; i < nbProduits; i++) {
             if (strcmp(produits[i].utilisateur, utilisateur) == 0) {
-                printf("Produit trouvé : %s (ID: %s)\n", produits[i].nom, produits[i].ID);
+                printf("Produit trouvÃ© : %s (ID: %s)\n", produits[i].nom, produits[i].ID);
                 return;
             }
         }
-        printf("Aucun produit trouvé pour cet utilisateur.\n");
+        printf("Aucun produit trouvÃ© pour cet utilisateur.\n");
     } else {
         printf("Choix invalide.\n");
     }
 }
 
-int comparerParNom(const void *a, const void *b) {
-    Produit *p1 = (Produit *)a;
-    Produit *p2 = (Produit *)b;
-    return strcmp(p1->nom, p2->nom);
-}
-
-int comparerParPrix(const void *a, const void *b) {
-    Produit *p1 = (Produit *)a;
-    Produit *p2 = (Produit *)b;
-    return (p1->prix_unitaire > p2->prix_unitaire) - (p1->prix_unitaire < p2->prix_unitaire);
-}
-
 void trierProduits(Produit produits[], int nbProduits) {
-    int choix;
+    int choix, i, j;
+    Produit temp;
+
     printf("Trier par :\n1. Nom\n2. Prix unitaire\nVotre choix : ");
     scanf("%d", &choix);
 
     if (choix == 1) {
-        qsort(produits, nbProduits, sizeof(Produit), comparerParNom);
-        printf("Produits triés par nom.\n");
+        for (i = 0; i < nbProduits - 1; i++) {
+            for (j = i + 1; j < nbProduits; j++) {
+                if (strcmp(produits[i].nom, produits[j].nom) > 0) {
+                    temp = produits[i];
+                    produits[i] = produits[j];
+                    produits[j] = temp;
+                }
+            }
+        }
+        printf("Produits triÃ©s par nom.\n");
     } else if (choix == 2) {
-        qsort(produits, nbProduits, sizeof(Produit), comparerParPrix);
-        printf("Produits triés par prix unitaire.\n");
+        for (i = 0; i < nbProduits - 1; i++) {
+            for (j = i + 1; j < nbProduits; j++) {
+                if (produits[i].prix_unitaire > produits[j].prix_unitaire) {
+                    temp = produits[i];
+                    produits[i] = produits[j];
+                    produits[j] = temp;
+                }
+            }
+        }
+        printf("Produits triÃ©s par prix unitaire.\n");
     } else {
         printf("Choix invalide.\n");
     }
 }
 
 void sauvegarderProduits(Produit produits[], int nbProduits, const char *fichier) {
-    FILE *f = fopen(fichier, "w");
+    FILE *f = fopen(fichier, "a");
     if (f == NULL) {
         printf("Erreur lors de l'ouverture du fichier.\n");
         return;
@@ -155,26 +161,29 @@ void sauvegarderProduits(Produit produits[], int nbProduits, const char *fichier
                 produits[i].date_sortie.j, produits[i].date_sortie.m, produits[i].date_sortie.an);
     }
     fclose(f);
-    printf("Données sauvegardées.\n");
+    printf("Donnï¿½es sauvegardï¿½es.\n");
 }
 
 void chargerProduits(Produit produits[], int *nbProduits, const char *fichier) {
     FILE *f = fopen(fichier, "r");
     if (f == NULL) {
-        printf("Fichier introuvable. Aucun produit chargé.\n");
+        printf("Fichier introuvable. Aucun produit chargÃ©.\n");
         return;
     }
-    char ligne[200];
-    fgets(ligne, sizeof(ligne), f); // Lire l'en-tête
-    while (fgets(ligne, sizeof(ligne), f)) {
-        Produit p;
-        sscanf(ligne, "%[^,],%[^,],%[^,],%[^,],%f,%d,%d,%d/%d/%d,%d/%d/%d",
-               p.ID, p.nom, p.description, p.utilisateur, &p.prix_unitaire,
-               &p.quantite, &p.seuil_alerte, &p.date_entree.j, &p.date_entree.m, &p.date_entree.an,
-               &p.date_sortie.j, &p.date_sortie.m, &p.date_sortie.an);
-        produits[*nbProduits] = p;
+
+    char header[200];
+    fscanf(f, "%[^\n]\n", header);
+
+    while (fscanf(f, "%[^,],%[^,],%[^,],%[^,],%f,%d,%d,%d/%d/%d,%d/%d/%d\n",
+                  produits[*nbProduits].ID, produits[*nbProduits].nom,
+                  produits[*nbProduits].description, produits[*nbProduits].utilisateur,
+                  &produits[*nbProduits].prix_unitaire, &produits[*nbProduits].quantite,
+                  &produits[*nbProduits].seuil_alerte,
+                  &produits[*nbProduits].date_entree.j, &produits[*nbProduits].date_entree.m, &produits[*nbProduits].date_entree.an,
+                  &produits[*nbProduits].date_sortie.j, &produits[*nbProduits].date_sortie.m, &produits[*nbProduits].date_sortie.an) == 13) {
         (*nbProduits)++;
     }
+
     fclose(f);
-    printf("Données chargées.\n");
+    printf("DonnÃ©es chargÃ©es.\n");
 }
